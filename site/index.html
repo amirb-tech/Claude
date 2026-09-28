@@ -90,6 +90,7 @@ h2 em,h1 em{font-style:italic;font-weight:300;color:var(--clay)}
 .hero-media,.hero-veil,.hero-strands{position:absolute;inset:-8% 0;will-change:transform}
 .hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover}
 .hero-veil{inset:0;background:
+  linear-gradient(90deg,rgba(43,29,23,.62) 0%,rgba(43,29,23,.28) 45%,rgba(43,29,23,0) 70%),
   radial-gradient(120% 80% at 20% 100%,rgba(43,29,23,.92) 0%,rgba(43,29,23,.35) 55%,rgba(43,29,23,0) 80%),
   linear-gradient(180deg,rgba(43,29,23,.45) 0%,rgba(43,29,23,0) 30%)}
 .hero-strands{pointer-events:none;opacity:.55}
@@ -237,8 +238,10 @@ footer{background:var(--espresso);color:var(--cream);padding:clamp(70px,10vw,120
 <section class="hero" aria-label="Welkom bij Marlee hair">
   <div class="hero-media" data-depth="0.35">
     <video id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" aria-hidden="true">
-      <source src="assets/hero-720.mp4" type="video/mp4" media="(max-width: 900px)">
-      <source src="assets/hero.mp4" type="video/mp4">
+      <source src="assets/hero-720.mp4" type='video/mp4; codecs="avc1.64001F"' media="(max-width: 900px)">
+      <source src="assets/hero-720.webm" type='video/webm; codecs="vp9"' media="(max-width: 900px)">
+      <source src="assets/hero.mp4" type='video/mp4; codecs="avc1.640028"'>
+      <source src="assets/hero.webm" type='video/webm; codecs="vp9"'>
     </video>
   </div>
   <div class="hero-strands" data-depth="0.18" aria-hidden="true">
@@ -330,15 +333,15 @@ footer{background:var(--espresso);color:var(--cream);padding:clamp(70px,10vw,120
       </div>
     </div>
     <div class="quotes">
-      <figure class="quote rv" data-depth="0.04">
+      <figure class="quote rv">
         <blockquote>Debbie is echt een fantastische kapster: ze geeft eerlijk advies, luistert en denkt altijd mee en zorgt dat je haar er top uitziet!</blockquote>
         <figcaption><b>Isa</b><span>Google-review</span></figcaption>
       </figure>
-      <figure class="quote rv d1" data-depth="0.1">
+      <figure class="quote rv d1">
         <blockquote>Ik was er vandaag voor het eerst en ben superblij met mijn haar! 😍 Ze weet precies wat ze doet en ik liep met een grote glimlach de deur uit.</blockquote>
         <figcaption><b>Jolene Bierman</b><span>Google-review</span></figcaption>
       </figure>
-      <figure class="quote rv d2" data-depth="0.16">
+      <figure class="quote rv d2">
         <blockquote lang="en">Had the best experience. It was my first time visiting the salon today and I was nervous because I had bad experiences before with other hair salons in the Netherlands…</blockquote>
         <figcaption><b>Lizette Swaen</b><span>Google-review</span></figcaption>
       </figure>
@@ -426,7 +429,7 @@ footer{background:var(--espresso);color:var(--cream);padding:clamp(70px,10vw,120
     for(const l of layers){
       if(!l.on) continue;
       const r=l.el.parentElement.getBoundingClientRect();
-      const c=(r.top+r.height/2)-vh/2;
+      const c=Math.max(-vh,Math.min(vh,(r.top+r.height/2)-vh/2));
       l.el.style.transform=`translate3d(0,${(-c*l.d*k).toFixed(1)}px,0)`;
     }
   }
