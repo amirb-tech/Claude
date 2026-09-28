@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Marlee hair">
+  <rect width="64" height="64" rx="32" fill="#2b1d17"/>
+  <path d="M17 44V22.5c0-1.4 1.7-2 2.6-.9L32 37l12.4-15.4c.9-1.1 2.6-.5 2.6.9V44" fill="none" stroke="#e9c4a6" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12 50c9-5 19-6 27-3.5s11 1.5 13-1" fill="none" stroke="#c9774f" stroke-width="2.4" stroke-linecap="round"/>
+</svg>
