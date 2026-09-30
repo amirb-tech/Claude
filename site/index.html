@@ -210,6 +210,8 @@ footer{background:var(--espresso);color:var(--cream);padding:clamp(70px,10vw,120
 .sticky-book.show{transform:none}
 .sticky-book .btn{width:100%;justify-content:center;box-shadow:0 18px 40px -14px rgba(43,29,23,.7)}
 @media(max-width:620px){.sticky-book{display:flex}}
+/* Iris voice widget floats bottom-right; keep the mobile route button clear of it */
+@media(max-width:620px){.sticky-book{bottom:calc(max(16px,env(safe-area-inset-bottom)) + 84px)}}
 
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto}
@@ -445,5 +447,9 @@ footer{background:var(--espresso);color:var(--cream);padding:clamp(70px,10vw,120
   new IntersectionObserver(([e])=>{if(reduce.matches)return;e.isIntersecting?tryPlay():v.pause()}).observe(v);
 })();
 </script>
+
+<!-- Iris: ElevenLabs conversational voice agent -->
+<elevenlabs-convai agent-id="agent_9601m3ryj3pqeqvrwzv7k8y9ppp1"></elevenlabs-convai>
+<script src="https://elevenlabs.io/convai-widget/index.js" async type="text/javascript"></script>
 </body>
 </html>
