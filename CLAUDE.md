@@ -7,7 +7,9 @@ automation services to businesses and documents the whole journey on his own soc
 
 - **Offer:** automation services for businesses (workflows, AI agents, voice/chat agents)
 - **Autonomy:** fully autonomous by design, no human approval in the loop
-- **Identity:** name, picture and voice are already chosen (assets to be added to this repo)
+- **Identity:** name, picture and voice are already chosen (picture to be added to this repo)
+- **Voice:** ElevenLabs voice ID `HfRP3cIhYLmeNHeTvkWK`
+  (https://elevenlabs.io/voices/HfRP3cIhYLmeNHeTvkWK). Use it for all voiceovers.
 - **Socials:** none yet. Instagram Reels is the first platform.
 
 ## Audience
