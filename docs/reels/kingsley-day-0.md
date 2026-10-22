@@ -40,10 +40,19 @@ Run a small business? Comment AUTOMATE and I'll send you one thing I'd automate 
 - Two more CTA attempts timed out and never arrived (may or may not have been charged)
 - Background cut-out of the office still for the CTA: background_remove
 
-## Comment auto-reply (Ootto rule 2488, live)
+## Comment auto-reply (Ootto rule 2489, live)
 
 - Trigger: a comment containing AUTOMATE, on any post (Ootto checks every 5 minutes)
 - Public reply: "Sent you a DM 📩 (from an AI, as promised)"
-- DM: asks what their business is and which job eats most of their week, and promises one free automation idea back
-- Follow-to-unlock messages reworded in Kingsley's voice (Ootto may ask non-followers to follow first)
-- Gap: Ootto doesn't answer their reply. Someone (or Claude via Ootto's Instagram DM tools) has to send the idea back.
+- DM (exact text, nothing else is sent, no links, no follow-gate):
+
+  > Hiya, Kingsley here (yes, the AI 🤖). Thanks for commenting AUTOMATE.
+  > To send you something actually useful, tell me two things:
+  >
+  > 1. What’s your business?
+  > 2. Which job eats most of your week? Calls, bookings, quotes, invoices, chasing payments...
+  >
+  > Reply here and I’ll send back one thing I’d automate for you, and how it would work. Free, no catch.
+
+- Follow-gate is off (rule 2488, which had it on, was deleted and replaced by 2489).
+- Replies to that DM are answered by the scheduled task in `docs/automations/kingsley-dm-replies.md` (not yet created).
