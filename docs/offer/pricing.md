@@ -1,9 +1,11 @@
 # Kingsley's services and pricing
 
+All prices in EUR, excluding VAT.
+
 | Service | Setup | Monthly | Notes |
 |---|---|---|---|
-| AI WhatsApp agent, FAQ | €490 | €99 | Meta message costs included up to a fair-use cap |
-| AI WhatsApp agent, bookings | €990 | €199 | Same cap |
+| AI WhatsApp agent, FAQ | €490 | €99 | Unlimited messages, Meta message costs included |
+| AI WhatsApp agent, bookings | €990 | €199 | Unlimited messages, Meta message costs included |
 | AI receptionist | €690 | €149 | 300 call minutes included, then €0.30/min |
 | Brain bundle (WhatsApp + receptionist) | €1,190 | €229 | Upsell on one brain |
 | AI website builder, one page | €590 | €29 | Hosting and small updates |
@@ -17,6 +19,7 @@
 - Quote only these packages and prices, exactly as listed. No discounts, no custom packages, no invented extras.
 - Match the package to the job they named (missed calls → AI receptionist; WhatsApp questions → WhatsApp FAQ;
   booking by message → WhatsApp bookings; both → Brain bundle; and so on).
-- Say what's included and the notes (caps, extra minutes, ad spend).
+- Say what's included and the notes (unlimited WhatsApp messages, extra call minutes, ad spend).
+- Always say prices are excluding VAT ("ex VAT").
 - No delivery timelines or guarantees. No contracts or payment in DMs: ask for their email so the proposal and
   next steps can be sent, and flag them to the owner as a hot lead.

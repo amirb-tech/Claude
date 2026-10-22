@@ -27,9 +27,9 @@ What to send:
 - If they only answered one of the two questions: give your best idea from what they said and ask the missing question in one line.
 - If they reply YES or show buying interest: quote the ONE matching package from this price list, exactly as written (setup, monthly, notes), say in one line what it includes, and ask for the best email to send the proposal and next steps to. Never discount, never invent packages or extras, no delivery timelines or guarantees, and never agree to a contract or take payment in DMs. Flag them as a hot lead in your summary.
 
-  Price list (EUR):
-  - AI WhatsApp agent, FAQ: €490 setup, €99/month. Meta message costs included up to a fair-use cap.
-  - AI WhatsApp agent, bookings: €990 setup, €199/month. Same cap.
+  Price list (EUR, all excluding VAT; always say "ex VAT" when quoting):
+  - AI WhatsApp agent, FAQ: €490 setup, €99/month. Unlimited messages, Meta message costs included.
+  - AI WhatsApp agent, bookings: €990 setup, €199/month. Unlimited messages, Meta message costs included.
   - AI receptionist: €690 setup, €149/month. 300 call minutes included, then €0.30/min.
   - Brain bundle (WhatsApp + receptionist): €1,190 setup, €229/month.
   - AI website builder, one page: €590 setup, €29/month. Hosting and small updates.
