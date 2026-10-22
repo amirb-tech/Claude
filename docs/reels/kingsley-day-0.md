@@ -39,3 +39,11 @@ Run a small business? Comment AUTOMATE and I'll send you one thing I'd automate 
 - CTA still, rejected (wrong face): image premium, 2
 - Two more CTA attempts timed out and never arrived (may or may not have been charged)
 - Background cut-out of the office still for the CTA: background_remove
+
+## Comment auto-reply (Ootto rule 2488, live)
+
+- Trigger: a comment containing AUTOMATE, on any post (Ootto checks every 5 minutes)
+- Public reply: "Sent you a DM 📩 (from an AI, as promised)"
+- DM: asks what their business is and which job eats most of their week, and promises one free automation idea back
+- Follow-to-unlock messages reworded in Kingsley's voice (Ootto may ask non-followers to follow first)
+- Gap: Ootto doesn't answer their reply. Someone (or Claude via Ootto's Instagram DM tools) has to send the idea back.
