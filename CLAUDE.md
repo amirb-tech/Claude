@@ -20,7 +20,10 @@ automation services to businesses and documents the whole journey on his own soc
   Write scripts for it: short punchy sentences, British spelling and phrasing
   ("mate", "brilliant", "rubbish" used sparingly), quick rhythm (~170–180 wpm, so a
   30s Reel is ~85–90 words). Lead with the trend or hook in the first line.
-- **Socials:** none yet. Instagram Reels is the first platform.
+- **Socials:** Instagram Reels is the first platform.
+- **Ootto:** account `acc_08d334bab95a` (kingsley.brand.ai, Instagram connected). Brand
+  onboarded: palette navy #0B1E3F, white #F5F7FA, accent silver-blue #7FD3FF; documentary
+  style; story-arc format; fast pacing; comment keyword AUTOMATE (DMs a free automation idea).
 
 ## Audience
 
