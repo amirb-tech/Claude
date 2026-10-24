@@ -7,6 +7,7 @@ on your computer:
 - **Telegram is his phone app**: send him voice notes or text, he replies with voice bubbles.
 - **Approvals**: routine work he does alone; proposals and posts he asks you on Telegram; anything
   about signing, paying, spending or legal, he **phones you** and acts only on a clear yes.
+- **Websites**: give him a company and he builds their site in Lovable (through Claude Code) and sends you the preview.
 - **Instagram**: every 4 hours he answers prospects who replied to the AUTOMATE DM (through Ootto),
   quotes from his price list, and escalates hot leads to you.
 
@@ -20,6 +21,7 @@ on your computer:
 | `profile/skills/kingsley/kingsley-pricing` | skill | Your packages and prices (ex VAT), quoting rules |
 | `profile/skills/kingsley/owner-approvals` | skill | When he acts alone, messages you, or calls you, and how a call works |
 | `profile/skills/kingsley/instagram-dm-replies` | skill | The AUTOMATE DM follow-up |
+| `profile/skills/kingsley/lovable-website-builder` | skill | Builds customer websites in Lovable via Claude Code |
 | `install.sh` | | Creates the `kingsley` profile and copies all of the above in |
 | `cron.sh` | | Creates his 3 scheduled jobs |
 
@@ -28,7 +30,7 @@ on your computer:
 - An always-on computer. An Apple Silicon Mac mini is ideal (it listens for "Hey Kingsley" and runs him).
 - Hermes installed (you've downloaded the repo: run its `./setup-hermes.sh`, or
   `curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash`).
-- Accounts and keys: Anthropic (Claude), ElevenLabs (his voice), a Telegram account, Twilio (his phone
+- Accounts and keys: Anthropic (Claude), Claude Code with Lovable connected (for websites), ElevenLabs (his voice), a Telegram account, Twilio (his phone
   number), Vapi (the phone conversation), and your Ootto MCP URL and key.
 - Rough running costs: Claude API usage, ElevenLabs plan, a Twilio number (a few euros a month) plus
   per-minute call charges, Vapi per-minute charges.
@@ -86,7 +88,20 @@ hermes -p kingsley gateway start
 Creates: Instagram DM replies (every 4h), a morning brief on Telegram (08:30), and an approval
 follow-up (hourly: an unanswered approval for 2h+ becomes a phone call, never 21:00 to 08:00).
 
-**8. "Hey Kingsley"**: open the Hermes desktop app on the `kingsley` profile. The wake word is already on
+**8. Lovable websites** (Kingsley builds sites through Claude Code, because Lovable only lets approved
+apps like Claude Code sign in)
+```bash
+npm install -g @anthropic-ai/claude-code      # skip if Claude Code is already installed
+claude mcp add --transport http --scope user lovable https://mcp.lovable.dev
+claude                                         # then type /mcp, pick lovable, sign in to Lovable
+claude mcp list                                # lovable should show as connected
+```
+Put your Lovable workspace name in `LOVABLE_WORKSPACE` in `.env`. Then tell Kingsley, for example:
+*"Build a one-page website for XYZ, a bakery in Utrecht. Their Instagram is @xyz."* He writes the brief,
+has Claude Code build it in Lovable, checks it, and sends you the preview link. Starting a paid build and
+publishing both need your OK first. Builds use your Lovable credits.
+
+**9. "Hey Kingsley"**: open the Hermes desktop app on the `kingsley` profile. The wake word is already on
 in his config (on-device detection; the speech engine downloads once on first use). Or from a terminal:
 `hermes -p kingsley`, then `/wake status`.
 

@@ -17,6 +17,8 @@ metadata:
 | Reply to Instagram DMs | Send a written proposal | A prospect is ready to sign or pay |
 | Send a free automation idea | Post a reel or any public post | Anything that spends money |
 | Quote list prices (`kingsley-pricing`) | Anything outside the price list | A complaint, or anything legal |
+| Fix rounds on an approved website build | Start a paid website build in Lovable | |
+| | Publish a website or connect a domain | |
 | Ask a prospect for their email | A request he is unsure about | A tier-2 message unanswered for 2 hours |
 
 When in doubt, go one tier up. Never act on a tier-2 or tier-3 item until the owner has clearly said yes.
