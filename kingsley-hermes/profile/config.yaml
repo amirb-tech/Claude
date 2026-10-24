@@ -1,0 +1,46 @@
+# Kingsley's Hermes profile config. install.sh copies this to ~/.hermes/profiles/kingsley/config.yaml.
+# Secrets never go here: they live in ~/.hermes/profiles/kingsley/.env (see .env.example).
+
+model:
+  provider: anthropic
+  default: claude-sonnet-5-5        # switch any time with `hermes -p kingsley model`
+
+# "Hey Kingsley": hands-free, detected on-device. sherpa is the open-vocabulary engine,
+# so the typed phrase is the detection key (no model training needed).
+wake_word:
+  enabled: true
+  provider: sherpa
+  phrase: "hey kingsley"
+  sensitivity: 0.6                  # raise towards 0.8 if he wakes up by accident
+  start_new_session: true
+
+# His real voice (ElevenLabs "Fast-Paced Informative Narrator") for every spoken reply,
+# including Telegram voice bubbles.
+tts:
+  provider: elevenlabs
+  elevenlabs:
+    voice_id: "HfRP3cIhYLmeNHeTvkWK"
+    model_id: "eleven_multilingual_v2"
+
+# Speech-to-text runs locally: no extra API key.
+stt:
+  provider: local
+  language: "en"
+  local:
+    model: base
+
+# Dangerous shell commands: risky ones are refused, unclear ones ask you. Scheduled jobs
+# never run a dangerous command unattended.
+approvals:
+  mode: smart
+  cron_mode: deny
+  unattended_mode: deny
+
+# Instagram goes through Ootto. Put the endpoint and key from your Ootto app in .env.
+# If Ootto uses OAuth instead of a key, replace `headers` with `auth: oauth` and run
+# `hermes -p kingsley mcp login ootto`.
+mcp_servers:
+  ootto:
+    url: "${OOTTO_MCP_URL}"
+    headers:
+      Authorization: "Bearer ${OOTTO_MCP_KEY}"
