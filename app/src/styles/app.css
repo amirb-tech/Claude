@@ -422,3 +422,5 @@ kbd { font-family: var(--font-mono); font-size: var(--fs-xs); background: var(--
 .welcome__faq p { color: var(--c-text-muted); margin-top: var(--s-2); }
 .welcome__cta { text-align: center; padding: var(--s-8) 0; display: flex; flex-direction: column; align-items: center; gap: var(--s-4); border-top: 1px solid var(--c-border); }
 .welcome__foot { text-align: center; padding: var(--s-5) 0; }
+.legal ul { padding-left: var(--s-5); display: grid; gap: var(--s-2); max-width: 720px; }
+.legal li { color: var(--c-text-muted); }

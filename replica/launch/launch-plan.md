@@ -17,7 +17,7 @@ my playlist". Join the conversation as yourself, answer the question asked,
 and link only when it fits.
 
 ## Launch posts (lead with the fix, not the copy)
-- **Show HN:** "Show HN: Cueline – a music player that plays exactly what you pick." Body: the fair-shuffle rule (every song once, current song first), why nothing is ever inserted, the 74 kB bundle, SQLite, and how the demo music was synthesised. Be there to answer for the first two hours
+- **Show HN:** "Show HN: Cueline – a music player that plays exactly what you pick." Body: the fair-shuffle rule (every song once, current song first), why nothing is ever inserted, the 83 kB bundle, SQLite, and how the demo music was synthesised. Be there to answer for the first two hours
 - **Product Hunt:** tagline "Plays what you pick." Gallery: the playlist page, the queue panel showing the shuffle order, the settings toggle
 
 ## The first 10 users, by hand

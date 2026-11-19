@@ -49,4 +49,4 @@ Setting to hide recent listening and playlists on Home,fixes,should,no,yes,fix #
 Queue survives refresh; syncs across devices,fixes,should,no,partial,"fix #5: queue 14 reviews; refresh done, sync to do"
 Never prompt for app-store reviews,fixes,could,no,yes,"fix #6: thin, 8 reviews 1 source"
 "Music only: no podcasts, video or AI host",fixes,should,no,yes,fix #7: clutter 76 reviews (mixed)
-Performance budget: JS under 100 kB gzipped,fixes,should,no,partial,"fix #8: bugs/slow 44 reviews; 74 kB today, no CI check yet"
+Performance budget: JS under 100 kB gzipped,fixes,should,no,partial,"fix #8: bugs/slow 44 reviews; 83 kB today, no CI check yet"

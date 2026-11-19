@@ -101,7 +101,7 @@ export function WelcomePage() {
         </section>
       </main>
       <footer className="welcome__foot muted small">
-        <span>{BRAND.name}</span> · <Link to="/settings">Settings</Link>
+        <span>{BRAND.name}</span> · <Link to="/privacy">Privacy</Link> · <Link to="/terms">Terms</Link>
       </footer>
     </div>
   );

@@ -2,6 +2,10 @@
 export const BRAND = {
   name: "Cueline",
   tagline: "Plays what you pick.",
+  /** Shown on the privacy and terms pages. Must be a real inbox you read before going live. */
+  supportEmail: "",
+  /** The legal entity running the service, for the terms. */
+  operator: "",
 };
 
 /** The cue mark: a play triangle on a line. Drawn from the logo brief; replace with the designed mark. */

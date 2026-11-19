@@ -7,6 +7,7 @@ import { ArtistPage, AlbumPage, PlaylistPage, HeartedPage, CollectionPage, useSh
 import { LoginPage, SignupPage, ForgotPage, ResetPage, SettingsPage, NotFoundPage, DesignPage } from "./pages/Account";
 import { MenuHost, ConfirmHost, Toasts } from "./ui";
 import { WelcomePage } from "./pages/Welcome";
+import { PrivacyPage, TermsPage } from "./pages/Legal";
 import { BRAND } from "./brand";
 
 function Layout() {
@@ -50,6 +51,8 @@ function Layout() {
           <Route path="/collection" element={<CollectionPage />} />
           <Route path="/collection/hearted" element={<HeartedPage />} />
           <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/terms" element={<TermsPage />} />
           <Route path="/design" element={<DesignPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

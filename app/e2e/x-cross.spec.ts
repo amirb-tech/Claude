@@ -27,3 +27,11 @@ test.describe("cross-cutting", () => {
     await a11y("design");
   });
 });
+
+test("privacy and terms pages render and pass axe", async ({ page, a11y }) => {
+  for (const [path, h] of [["/privacy", "Privacy"], ["/terms", "Terms"]]) {
+    await page.goto(path);
+    await expect(page.getByRole("heading", { level: 1, name: h })).toBeVisible();
+    await a11y(path);
+  }
+});

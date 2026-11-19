@@ -163,6 +163,7 @@ export function SettingsPage() {
         <HomeSettings />
         <h2 className="section-title">Account</h2>
         <AccountSettings />
+        <p className="muted small"><Link to="/privacy">Privacy</Link> · <Link to="/terms">Terms</Link></p>
         <h2 className="section-title">Keyboard shortcuts</h2>
         <dl className="keys">
           <dt><kbd>Space</kbd></dt><dd>Play or pause</dd>
