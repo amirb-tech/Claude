@@ -40,5 +40,5 @@ Personalised ML recommendations,home,should,yes,skip,needs a large listening gra
 Podcasts and audiobooks,content,could,yes,skip,separate product and licensing
 Lyrics,player,could,yes,skip,lyrics are licensed text
 Offline downloads with DRM,player,could,yes,skip,DRM and native apps out of this slice
-Connect (control playback on other devices),player,could,yes,skip,
-Year-in-review recap,engagement,could,yes,skip,
+Connect (control playback on other devices),player,could,yes,skip,needs native apps and device protocol; out of this web slice
+Year-in-review recap,engagement,could,yes,skip,needs a year of listening data; revisit after launch
