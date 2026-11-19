@@ -1,0 +1,44 @@
+feature,area,priority,original,clone,notes
+App shell: sidebar library + top bar + persistent player bar,shell,must,yes,yes,player keeps playing across navigation
+Home shelves (recently played / made for you / new releases),home,must,yes,yes,recent / your playlists / most played / new / artists; no ML
+Play a collection from a card with one click,home,must,yes,yes,
+Search across songs artists albums playlists,search,must,yes,yes,LIKE search with filters and best match
+Browse tiles by genre/mood before typing,search,should,yes,yes,genre tiles + genre page
+Artist page with popular tracks and discography,artist,must,yes,yes,
+Album page with tracklist,album,must,yes,yes,
+Playlist page with tracklist,playlist,must,yes,yes,
+Play / pause / next / previous,player,must,yes,yes,previous restarts after 3s
+Seek bar with elapsed and total time,player,must,yes,yes,HTTP Range for scrubbing
+Volume and mute,player,must,yes,yes,
+Shuffle,player,must,yes,yes,current song stays first; no repeats until exhausted
+Repeat off / context / track,player,must,yes,yes,
+Queue: add to queue and view queue panel,queue,must,yes,yes,
+Like a song (heart) and Liked Songs collection,library,must,yes,yes,called Hearted songs
+Create playlist,playlists,must,yes,yes,
+Add track to playlist (context menu),playlists,must,yes,yes,plus inline Add songs search; duplicate warning
+Remove track from playlist,playlists,must,yes,yes,
+Rename / describe / delete playlist,playlists,must,yes,yes,plus public/private
+Sign up and log in with email,account,must,yes,yes,no password reset yet (needs email)
+Your Library list with filters (playlists/albums/artists),library,should,yes,yes,
+Save albums and follow artists,library,should,yes,yes,
+Reorder and remove items in the queue,queue,should,yes,yes,"up/down buttons, no drag"
+Recently played history,home,should,yes,yes,home shelf
+Keyboard shortcuts (space to play/pause etc),player,should,yes,yes,
+Responsive mobile layout with bottom nav,shell,should,yes,yes,
+Now-playing panel with large artwork,player,should,yes,yes,
+Media Session (lock screen / hardware keys),player,should,yes,yes,
+Toasts confirming actions,shell,should,yes,yes,
+Remember volume and last track between visits,player,should,yes,yes,restored paused
+Sort library (recent / alphabetical),library,could,yes,yes,
+Playlist cover image upload,playlists,could,yes,partial,auto mosaic from album covers; no upload
+Crossfade setting,settings,could,yes,no,
+Autoplay similar tracks at end of context,player,could,yes,no,
+Share link to a track/playlist,sharing,could,yes,partial,copy link to album from menu
+Collaborative playlists,playlists,could,yes,no,
+Licensed music catalogue,content,must,yes,skip,licensed content; clone streams only audio the operator owns
+Personalised ML recommendations,home,should,yes,skip,needs a large listening graph; simple shelves instead
+Podcasts and audiobooks,content,could,yes,skip,separate product and licensing
+Lyrics,player,could,yes,skip,lyrics are licensed text
+Offline downloads with DRM,player,could,yes,skip,DRM and native apps out of this slice
+Connect (control playback on other devices),player,could,yes,skip,
+Year-in-review recap,engagement,could,yes,skip,
