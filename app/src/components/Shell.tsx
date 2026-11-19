@@ -8,6 +8,7 @@ import { api, fmtTime } from "../api";
 import { player, usePlayer } from "../player";
 import { useSession } from "../session";
 import { BRAND } from "../brand";
+import { Mark } from "./Mark";
 import { CoverMosaic, HeartButton, Modal } from "../ui";
 
 // ---------- Sidebar: library rail ----------
@@ -34,7 +35,7 @@ export function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle:
   return (
     <aside className={`sidebar ${collapsed ? "is-collapsed" : ""}`} aria-label="Navigation and collection">
       <nav className="panel sidebar__nav">
-        <Link to="/" className="brand" aria-label={`${BRAND.name} home`}><span className="brand__mark" aria-hidden />{!collapsed && <span>{BRAND.name}</span>}</Link>
+        <Link to="/" className="brand" aria-label={`${BRAND.name} home`}><Mark />{!collapsed && <span>{BRAND.name}</span>}</Link>
         <NavLink to="/" end className="navlink"><Home size={22} />{!collapsed && <span>Home</span>}</NavLink>
         <NavLink to="/search" className="navlink"><Search size={22} />{!collapsed && <span>Search</span>}</NavLink>
       </nav>
@@ -174,7 +175,7 @@ export function PlayerBar({ panel, setPanel }: { panel: "queue" | "now" | null; 
             </div>
             <HeartButton track={current} alwaysShow />
           </>
-        ) : <span className="pb__idle">Pick something to play</span>}
+        ) : <span className="pb__idle">Pick something. It'll play just that.</span>}
       </div>
       <div className="pb__center">
         <div className="pb__controls">

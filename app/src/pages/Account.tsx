@@ -4,6 +4,7 @@ import { Compass, Heart, Play } from "lucide-react";
 import { api, ApiError, type Track } from "../api";
 import { useSession } from "../session";
 import { BRAND } from "../brand";
+import { Mark } from "../components/Mark";
 import { EmptyState, PlayButton, HeartButton, Shelf, TrackList, Bars } from "../ui";
 import { HIDE_PERSONAL_KEY, readHidePersonal } from "./Browse";
 
@@ -19,8 +20,9 @@ function AuthForm({ mode }: { mode: "login" | "signup" }) {
   return (
     <div className="auth">
       <div className="auth__card">
-        <span className="brand__mark brand__mark--lg" aria-hidden />
-        <h1>{signup ? `Join ${BRAND.name}` : `Welcome back`}</h1>
+        <Mark className="brand__mark brand__mark--lg" />
+        <h1>{signup ? `Make your ${BRAND.name} account` : `Log in to ${BRAND.name}`}</h1>
+        <p className="muted auth__tag">{BRAND.tagline}</p>
         <form className="form" noValidate onSubmit={async (e) => {
           e.preventDefault();
           setErr("");
@@ -57,7 +59,7 @@ export function ForgotPage() {
   const [err, setErr] = useState("");
   return (
     <div className="auth"><div className="auth__card">
-      <span className="brand__mark brand__mark--lg" aria-hidden />
+      <Mark className="brand__mark brand__mark--lg" />
       <h1>Reset your password</h1>
       {sent ? <p className="muted" role="status">If an account uses that email, a reset link is on its way. It works for one hour.</p> : (
         <form className="form" onSubmit={async (e) => {
@@ -82,7 +84,7 @@ export function ResetPage() {
   const [err, setErr] = useState("");
   return (
     <div className="auth"><div className="auth__card">
-      <span className="brand__mark brand__mark--lg" aria-hidden />
+      <Mark className="brand__mark brand__mark--lg" />
       <h1>Choose a new password</h1>
       <form className="form" onSubmit={async (e) => {
         e.preventDefault(); setErr("");

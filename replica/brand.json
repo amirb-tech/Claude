@@ -1,0 +1,6 @@
+{
+  "name": "Cueline",
+  "avoid": ["Spotify", "Spotify AB", "Spotify Premium", "Daylist", "Discover Weekly", "Release Radar", "Wrapped", "Liked Songs", "Your Library", "Made For You", "Jump back in", "Smart Shuffle", "Spotify Connect", "Blend"],
+  "domains": ["spotify.com", "open.spotify.com", "scdn.co", "spotifycdn.com", "spotify.link"],
+  "colors": ["#1DB954", "#1ED760", "#191414", "#1AA34A"]
+}

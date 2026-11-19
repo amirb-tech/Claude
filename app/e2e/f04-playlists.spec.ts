@@ -4,7 +4,7 @@ import type { Page } from "@playwright/test";
 async function newPlaylist(page: Page) {
   await page.getByRole("button", { name: "New playlist" }).click();
   await expect(page).toHaveURL(/\/playlist\//);
-  await expect(page.getByRole("heading", { name: "This playlist is empty" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Nothing here yet" })).toBeVisible();
 }
 async function addBySearch(page: Page, q: string) {
   await page.getByLabel("Search for songs to add").fill(q);

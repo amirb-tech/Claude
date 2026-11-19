@@ -147,8 +147,8 @@ export function PlaylistPage() {
       <div className="page__body">
         {p.tracks.length > 0
           ? <TrackList tracks={p.tracks} context={ctx} showAdded onRemove={p.isOwner ? remove : undefined} onMove={p.isOwner ? move : undefined} />
-          : <EmptyState icon={<ListMusic size={40} />} title="This playlist is empty"
-              body={p.isOwner ? "Search below, or right-click any song in the app and choose Add to playlist." : "The owner hasn't added songs yet."} />}
+          : <EmptyState icon={<ListMusic size={40} />} title="Nothing here yet"
+              body={p.isOwner ? "Search below and add a song, or use Add to playlist on any song." : "The owner hasn't added songs yet."} />}
         {p.isOwner && <FindMore playlist={p} onAdded={() => { reload(); refreshLibrary(); }} />}
       </div>
       {editing && <EditDetails p={p} onClose={() => setEditing(false)} onSaved={(np) => { setData({ ...p, ...np }); refreshLibrary(); }} />}

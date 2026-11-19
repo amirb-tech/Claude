@@ -11,6 +11,8 @@ S4 cosmetic.
 | BUG-003 | S3 | Queue is lost on page refresh | fixed |
 | BUG-004 | S4 | "1 songs" in the sidebar | fixed (during build) |
 | BUG-005 | S3 | Album/playlist header sat 16px inside the screen edge on mobile | fixed (during build) |
+| BUG-007 | S3 | Genre tile names fell below AA contrast after the rebrand (House, Lo-fi) | fixed |
+| BUG-008 | S4 | Sidebar filter chips clipped under the sort button | fixed |
 | BUG-006 | S2 | Hook called conditionally in the app shell (`useMatch() \|\| useMatch()`) | fixed (during build, before it could misfire) |
 
 ## BUG-001 Empty playlist cover is announced as an unnamed image
@@ -37,6 +39,17 @@ S4 cosmetic.
 - Evidence: e2e `F06-H1/E2` run 1 (it used a full reload)
 - Fix: queue and its source are persisted with the rest of the player state (`app/src/player.ts`). New test `F06-E3` reproduces it and now passes.
 
+## BUG-007 Genre tile names fell below AA contrast after the rebrand
+- Severity: S3 (axe color-contrast, serious)
+- Steps: open Search → axe scan
+- Expected: tile names ≥ 4.5:1 on every tile colour
+- Actual: tiles coloured from the genre name at 40% lightness; yellow-green hues failed with the new warmer text colour
+- Evidence: e2e F02-H1 after the brand change
+- Fix: tile background at 28% lightness; worst hue now 5.02:1 (checked across all 360 hues). Test kept: F02-H1 axe scan.
+
+## BUG-008 Sidebar filter chips clipped under the sort button
+- Severity: S4 · Found by eye in the branded screenshots · Fix: tighter chip padding, chips row can shrink; measured gap 17px.
+
 ## Test mistakes found in run 1 (not app bugs)
 - `F05-E6`, `F08 settings`: the same accessible name ("Play Boss Room", "Log in") correctly appears twice on the page; selectors made specific.
 
@@ -47,4 +60,4 @@ S4 cosmetic.
 
 ## Summary
 API tests: 10/10. E2E: 34/34, three consecutive green runs, axe scan (WCAG 2.1 A/AA, serious+critical) on 17 screens/states.
-Bugs: S1 0, S2 1 (fixed), S3 4 (fixed), S4 1 (fixed). Open: none.
+Bugs: S1 0, S2 1 (fixed), S3 5 (fixed), S4 2 (fixed). Open: none.

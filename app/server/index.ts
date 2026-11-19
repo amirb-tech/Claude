@@ -7,7 +7,7 @@ import { hashPassword, verifyPassword, startSession, endSession, loadUser, requi
 import { sendMail, resetEmail } from "./mail.ts";
 import { rateLimit } from "./ratelimit.ts";
 
-const BRAND_NAME = process.env.APP_NAME ?? "Untitled Player";
+const BRAND_NAME = process.env.APP_NAME ?? "Cueline";
 const sha256 = (s: string) => createHash("sha256").update(s).digest("hex");
 
 const app = express();
