@@ -52,10 +52,12 @@ export function ContextPlayButton({ context, load, size = "lg", className }:
 // ---------- Cards & shelves ----------
 export function CoverMosaic({ covers, alt }: { covers: string[]; alt: string }) {
   if (covers.length >= 4) {
-    return <div className="mosaic" role="img" aria-label={alt}>{covers.slice(0, 4).map((c, i) => <img key={i} src={c} alt="" />)}</div>;
+    return <div className="mosaic" {...(alt ? { role: "img", "aria-label": alt } : { "aria-hidden": true })}>{covers.slice(0, 4).map((c, i) => <img key={i} src={c} alt="" />)}</div>;
   }
   if (covers.length) return <img src={covers[0]} alt={alt} />;
-  return <div className="cover-placeholder" role="img" aria-label={alt}><ListMusic /></div>;
+  return alt
+    ? <div className="cover-placeholder" role="img" aria-label={alt}><ListMusic aria-hidden /></div>
+    : <div className="cover-placeholder" aria-hidden="true"><ListMusic /></div>;
 }
 
 export function AlbumCardView({ a }: { a: AlbumCard }) {
@@ -218,7 +220,7 @@ function TrackRow({ t, index, tracks, context, showArt, showAlbum, showAdded, nu
 }
 
 export function Bars() {
-  return <span className="eq" aria-label="Now playing"><i /><i /><i /></span>;
+  return <span className="eq" role="img" aria-label="Now playing"><i /><i /><i /></span>;
 }
 
 // ---------- Context menu (one host for the app) ----------

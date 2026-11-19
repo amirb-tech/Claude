@@ -51,7 +51,7 @@ class Player {
     try { saved = JSON.parse(localStorage.getItem(LS) ?? "{}"); } catch { /* storage blocked */ }
     this.state = {
       context: saved.context ?? null, tracks: saved.tracks ?? [], order: saved.order ?? [], pos: saved.pos ?? 0,
-      queue: [], current: saved.current ?? null, fromQueue: false, playing: false, loading: false,
+      queue: Array.isArray(saved.queue) ? saved.queue : [], current: saved.current ?? null, fromQueue: !!saved.fromQueue, playing: false, loading: false,
       shuffle: saved.shuffle ?? false, repeat: saved.repeat ?? "off",
       volume: typeof saved.volume === "number" ? saved.volume : 0.8, muted: false,
       time: 0, duration: saved.current?.durationMs ?? 0, error: null,
@@ -78,11 +78,14 @@ class Player {
   private set(p: Partial<State>) {
     this.state = { ...this.state, ...p };
     this.listeners.forEach((l) => l());
-    if ("current" in p || "volume" in p || "shuffle" in p || "repeat" in p || "pos" in p) this.persist();
+    if ("current" in p || "volume" in p || "shuffle" in p || "repeat" in p || "pos" in p || "queue" in p) this.persist();
   }
   private persist() {
-    const { context, tracks, order, pos, current, shuffle, repeat, volume } = this.state;
-    try { localStorage.setItem(LS, JSON.stringify({ context, tracks: tracks.slice(0, 500), order: order.slice(0, 500), pos, current, shuffle, repeat, volume })); } catch { /* ignore */ }
+    const { context, tracks, order, pos, current, shuffle, repeat, volume, queue, fromQueue } = this.state;
+    try {
+      localStorage.setItem(LS, JSON.stringify({ context, tracks: tracks.slice(0, 500), order: order.slice(0, 500), pos, current, shuffle, repeat, volume,
+        queue: queue.slice(0, 200), fromQueue }));
+    } catch { /* ignore */ }
   }
 
   private logPlay() {

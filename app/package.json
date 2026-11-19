@@ -11,7 +11,9 @@
     "build": "tsc -p tsconfig.json --noEmit && vite build",
     "start": "NODE_ENV=production tsx server/index.ts",
     "setup": "npm run media && npm run seed && npm run build",
-    "test:api": "node --test --import tsx tests/api.test.ts"
+    "test:api": "node --test --import tsx tests/api.test.ts",
+    "test:e2e": "npx vite build >/dev/null && playwright test --trace off",
+    "test": "npm run test:api && npm run test:e2e"
   },
   "dependencies": {
     "@fontsource/manrope": "^5.1.0",
@@ -23,6 +25,8 @@
     "tsx": "^4.19.2"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
+    "@playwright/test": "^1.63.0",
     "@types/express": "^4.17.21",
     "@types/node": "^22.10.1",
     "@types/react": "^18.3.12",
