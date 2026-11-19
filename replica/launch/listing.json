@@ -1,0 +1,16 @@
+{
+  "avoid": ["Spotify", "Spotify AB", "Spotify Premium", "Daylist", "Discover Weekly", "Release Radar", "Wrapped", "Liked Songs", "Your Library", "Made For You", "Smart Shuffle", "Spotify Connect"],
+  "app_store": {
+    "name": "Cueline: Plays What You Pick",
+    "subtitle": "No ads. Fair shuffle.",
+    "promotional_text": "Your playlist plays exactly what's in it. Nothing added, no ads, no skip limits, and shuffle that plays every song once before any repeats.",
+    "description": "Cueline is a music player that does what you tell it.\n\nPick an album or a playlist and it plays exactly that, in the order you asked for. It doesn't slip in recommended songs, and there's no autoplay unless you switch it on.\n\nShuffle is fair: every song plays once before any of them repeats, the song you're on stays put, and you can see exactly what's coming next in the queue.\n\nNo ads. No skip limits. Every song on demand, on the free plan.\n\nWhat you get:\n- Albums, artists and playlists you build yourself\n- Heart songs to keep them\n- A queue you control: add, reorder, remove, and it's still there after you close the app\n- An option to hide your listening history from the home screen\n- Keyboard shortcuts on desktop\n\nWhat you won't get: ads, review pop-ups, podcasts or an AI host in your music.\n\nThe music on Cueline is published by the artists and labels who own it.",
+    "keywords": "music,player,playlist,indie,albums,queue,songs,listen,artists,labels,random,adfree",
+    "whats_new": "First release. Plays what you pick."
+  },
+  "google_play": {
+    "title": "Cueline: Plays What You Pick",
+    "short_description": "A music player that plays exactly what you pick. No ads, no skip limits.",
+    "full_description": "Cueline is a music player that does what you tell it.\n\nPick an album or a playlist and it plays exactly that, in the order you asked for. Nothing is slipped in, and there's no autoplay unless you switch it on.\n\nShuffle is fair: every song plays once before any of them repeats, and the queue shows exactly what's next.\n\nNo ads. No skip limits. Every song on demand, on the free plan.\n\nThe music on Cueline is published by the artists and labels who own it."
+  }
+}

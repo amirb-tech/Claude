@@ -6,6 +6,7 @@ import { HomePage, SearchPage, SearchBox, GenrePage } from "./pages/Browse";
 import { ArtistPage, AlbumPage, PlaylistPage, HeartedPage, CollectionPage, useShortcuts } from "./pages/Collections";
 import { LoginPage, SignupPage, ForgotPage, ResetPage, SettingsPage, NotFoundPage, DesignPage } from "./pages/Account";
 import { MenuHost, ConfirmHost, Toasts } from "./ui";
+import { WelcomePage } from "./pages/Welcome";
 import { BRAND } from "./brand";
 
 function Layout() {
@@ -19,6 +20,7 @@ function Layout() {
   const onSignup = useMatch("/signup");
   const onForgot = useMatch("/forgot");
   const onReset = useMatch("/reset/:token");
+  const onWelcome = useMatch("/welcome");
   const authPage = onLogin || onSignup || onForgot || onReset;
   const shortcuts = useShortcuts();
 
@@ -27,6 +29,7 @@ function Layout() {
   useEffect(() => { document.addEventListener("keydown", shortcuts); return () => document.removeEventListener("keydown", shortcuts); }, [shortcuts]);
   useEffect(() => { document.title = BRAND.name; }, [loc.pathname]);
 
+  if (onWelcome) return <div className="auth-shell welcome-shell"><WelcomePage /></div>;
   if (authPage) {
     return <main className="auth-shell"><Routes><Route path="/login" element={<LoginPage />} /><Route path="/signup" element={<SignupPage />} /><Route path="/forgot" element={<ForgotPage />} /><Route path="/reset/:token" element={<ResetPage />} /></Routes><Toasts /></main>;
   }
