@@ -1,0 +1,384 @@
+{
+ "_about": "Themes reviews.py sorts feedback into. Patterns are Python regular expressions, matched case-insensitively against the review text. kind is complaint (something users hate) or request (something users want that is missing). Edit freely: add the app category's own words (for a booking app: double booking, time zone, no-show).",
+ "request_patterns": [
+  "\\bi wish\\b",
+  "\\bplease add\\b",
+  "\\bwould be (nice|great|good|helpful)\\b",
+  "\\bwould love\\b",
+  "\\bneeds? (a|an|the|to|more)\\b",
+  "\\bno way to\\b",
+  "\\bthere'?s no (way|option)\\b",
+  "\\b(can'?t|cannot|unable to) (even )?(add|change|edit|set|choose|export|import|customi[sz]e|connect|undo|delete|turn off)\\b",
+  "\\b(missing|lacks|lacking)\\b",
+  "\\bdoesn'?t (have|support|let|allow)\\b",
+  "\\bif only\\b",
+  "\\bfeature request\\b",
+  "\\bwhy (can'?t|isn'?t|doesn'?t)\\b"
+ ],
+ "themes": [
+  {
+   "id": "ads",
+   "label": "Too many ads / ads on the free tier",
+   "kind": "complaint",
+   "patterns": [
+    "\\bads?\\b",
+    "\\badvert",
+    "\\bcommercials?\\b"
+   ]
+  },
+  {
+   "id": "shuffle",
+   "label": "Shuffle isn't random / repeats the same songs",
+   "kind": "complaint",
+   "patterns": [
+    "\\bshuffl",
+    "\\bsame (songs?|\\d+ songs)\\b",
+    "\\bnot (really )?random\\b",
+    "\\brandom\\b"
+   ]
+  },
+  {
+   "id": "forced-content",
+   "label": "Songs added or played that the user didn't choose (smart shuffle, recommended, autoplay)",
+   "kind": "complaint",
+   "patterns": [
+    "\\bsmart shuffle\\b",
+    "\\brecommended songs?\\b",
+    "\\bsongs? (i|I) didn'?t (add|choose|pick)",
+    "\\bnot (in|on) my playlist\\b",
+    "\\badds? (random )?songs\\b",
+    "\\bautoplay\\b",
+    "\\benhance\\b"
+   ]
+  },
+  {
+   "id": "skip-limit",
+   "label": "Skip limits and can't pick songs on the free tier",
+   "kind": "complaint",
+   "patterns": [
+    "\\bskips?\\b",
+    "\\bskip limit",
+    "\\bcan'?t (choose|pick|select|play) (the |a |what |which )?(song|songs|music)",
+    "\\bon.?demand\\b"
+   ]
+  },
+  {
+   "id": "clutter",
+   "label": "App is cluttered: podcasts, audiobooks, video, AI features pushed on music listeners",
+   "kind": "complaint",
+   "patterns": [
+    "\\bpodcasts?\\b",
+    "\\baudiobooks?\\b",
+    "\\bclutter",
+    "\\bbloat",
+    "\\bvideos?\\b",
+    "\\bAI\\b",
+    "\\bDJ\\b",
+    "\\btiktok\\b"
+   ]
+  },
+  {
+   "id": "redesign",
+   "label": "Redesigns / UI changes made the app worse",
+   "kind": "complaint",
+   "patterns": [
+    "\\bupdate\\b",
+    "\\bredesign",
+    "\\bnew (ui|layout|design|interface)\\b",
+    "\\bchanged?\\b",
+    "\\bused to\\b",
+    "\\bbring back\\b"
+   ]
+  },
+  {
+   "id": "library",
+   "label": "Library and playlist management is hard (sorting, folders, finding things)",
+   "kind": "complaint",
+   "patterns": [
+    "\\blibrary\\b",
+    "\\bsort(ing)?\\b",
+    "\\bfolders?\\b",
+    "\\borganiz"
+   ]
+  },
+  {
+   "id": "lyrics",
+   "label": "Lyrics behind a paywall",
+   "kind": "complaint",
+   "patterns": [
+    "\\blyrics?\\b"
+   ]
+  },
+  {
+   "id": "queue",
+   "label": "Queue problems",
+   "kind": "complaint",
+   "patterns": [
+    "\\bqueue\\b"
+   ]
+  },
+  {
+   "id": "artists-pay",
+   "label": "Artists are paid too little",
+   "kind": "complaint",
+   "patterns": [
+    "\\bartists? (get|are) paid\\b",
+    "\\bpay(s|ing)? artists\\b",
+    "\\broyalt",
+    "\\bper stream\\b"
+   ]
+  },
+  {
+   "id": "local-files",
+   "label": "Own music / local files / uploading your own tracks",
+   "kind": "request",
+   "patterns": [
+    "\\blocal files?\\b",
+    "\\bmy own (music|files|mp3s?)\\b",
+    "\\bupload\\b",
+    "\\bmp3s?\\b",
+    "\\bown the music\\b",
+    "\\bown my music\\b"
+   ]
+  },
+  {
+   "id": "offline",
+   "label": "Offline / downloads",
+   "kind": "complaint",
+   "patterns": [
+    "\\boffline\\b",
+    "\\bdownload"
+   ]
+  },
+  {
+   "id": "audio-quality",
+   "label": "Audio quality / lossless",
+   "kind": "request",
+   "patterns": [
+    "\\blossless\\b",
+    "\\bhi.?fi\\b",
+    "\\baudio quality\\b",
+    "\\bbitrate\\b",
+    "\\bflac\\b"
+   ]
+  },
+  {
+   "id": "pricing",
+   "label": "Price and paywalls",
+   "kind": "complaint",
+   "patterns": [
+    "\\bexpensive\\b",
+    "\\boverpriced\\b",
+    "\\bpric(e|es|ey|ing)\\b",
+    "\\bpaywall",
+    "\\bsubscription\\b",
+    "\\bper (month|seat|user)\\b",
+    "\\bfree (plan|tier|version)\\b",
+    "\\bupgrade to\\b",
+    "\\bpremium\\b",
+    "\\bnot worth\\b",
+    "\\bcost(s|ly)?\\b"
+   ]
+  },
+  {
+   "id": "billing",
+   "label": "Billing, cancelling and refunds",
+   "kind": "complaint",
+   "patterns": [
+    "\\bcharged\\b",
+    "\\brefund",
+    "\\bcancel(l?ing|l?ed|lation)?\\b",
+    "\\bauto.?renew",
+    "\\bhidden (fee|charge)",
+    "\\bbilling\\b",
+    "\\bscam\\b",
+    "\\bcredit card\\b"
+   ]
+  },
+  {
+   "id": "bugs",
+   "label": "Bugs and crashes",
+   "kind": "complaint",
+   "patterns": [
+    "\\bcrash(es|ed|ing)?\\b",
+    "\\bbugs?\\b",
+    "\\bbuggy\\b",
+    "\\bglitch",
+    "\\bfreez(e|es|ing)\\b",
+    "\\bbroken\\b",
+    "\\b(doesn'?t|does not|stopped) work",
+    "\\bnot working\\b",
+    "\\berror\\b"
+   ]
+  },
+  {
+   "id": "performance",
+   "label": "Slow, laggy, heavy",
+   "kind": "complaint",
+   "patterns": [
+    "\\bslow\\b",
+    "\\blag(gy|s)?\\b",
+    "\\bloading\\b",
+    "\\btakes forever\\b",
+    "\\bbattery\\b",
+    "\\bsluggish\\b",
+    "\\bheavy\\b"
+   ]
+  },
+  {
+   "id": "data",
+   "label": "Sync and lost data",
+   "kind": "complaint",
+   "patterns": [
+    "\\bsync(ing|s|ed)?\\b",
+    "\\blost (my|all)\\b",
+    "\\bdisappear",
+    "\\bdata loss\\b",
+    "\\bwiped\\b",
+    "\\bbackup\\b",
+    "\\bduplicat"
+   ]
+  },
+  {
+   "id": "ux",
+   "label": "Confusing or clunky to use",
+   "kind": "complaint",
+   "patterns": [
+    "\\bconfus",
+    "\\bhard to (use|find|navigate|understand)\\b",
+    "\\bcomplicated\\b",
+    "\\bcluttered\\b",
+    "\\bunintuitive\\b",
+    "\\bnot intuitive\\b",
+    "\\bclunky\\b",
+    "\\btoo many (steps|clicks|taps)\\b",
+    "\\blearning curve\\b",
+    "\\bcan'?t find\\b"
+   ]
+  },
+  {
+   "id": "support",
+   "label": "Support that does not answer",
+   "kind": "complaint",
+   "patterns": [
+    "\\bcustomer (service|support)\\b",
+    "\\bsupport (team|is|was)\\b",
+    "\\bno (response|reply)\\b",
+    "\\bnever (replied|responded|heard back)\\b",
+    "\\bticket\\b",
+    "\\bchat ?bot\\b"
+   ]
+  },
+  {
+   "id": "account",
+   "label": "Login and account problems",
+   "kind": "complaint",
+   "patterns": [
+    "\\blog ?in\\b",
+    "\\bsign ?in\\b",
+    "\\bpassword\\b",
+    "\\blocked out\\b",
+    "\\bverification\\b",
+    "\\b2fa\\b",
+    "\\bdelete (my )?account\\b"
+   ]
+  },
+  {
+   "id": "notifications",
+   "label": "Notifications and spam",
+   "kind": "complaint",
+   "patterns": [
+    "\\bnotification",
+    "\\bspam",
+    "\\btoo many emails\\b",
+    "\\bpush\\b",
+    "\\breminders?\\b"
+   ]
+  },
+  {
+   "id": "updates",
+   "label": "A redesign or update made it worse",
+   "kind": "complaint",
+   "patterns": [
+    "\\b(new|latest|recent) (update|version|design)\\b",
+    "\\bredesign",
+    "\\bused to be\\b",
+    "\\bbring back\\b",
+    "\\bsince the update\\b"
+   ]
+  },
+  {
+   "id": "privacy",
+   "label": "Privacy and permissions",
+   "kind": "complaint",
+   "patterns": [
+    "\\bprivacy\\b",
+    "\\btracking\\b",
+    "\\bsell(s|ing)? (my )?data\\b",
+    "\\bpermissions?\\b",
+    "\\bcreepy\\b"
+   ]
+  },
+  {
+   "id": "integrations",
+   "label": "Integrations, import and export",
+   "kind": "request",
+   "patterns": [
+    "\\bintegrat",
+    "\\bzapier\\b",
+    "\\bgoogle (calendar|sheets|drive)\\b",
+    "\\boutlook\\b",
+    "\\bslack\\b",
+    "\\bapi\\b",
+    "\\bexport\\b",
+    "\\bimport\\b",
+    "\\bcsv\\b",
+    "\\bwebhook"
+   ]
+  },
+  {
+   "id": "platforms",
+   "label": "Platforms, offline and mobile",
+   "kind": "request",
+   "patterns": [
+    "\\boffline\\b",
+    "\\bandroid\\b",
+    "\\bipad\\b",
+    "\\btablet\\b",
+    "\\bdesktop app\\b",
+    "\\bmac app\\b",
+    "\\bwindows\\b",
+    "\\bmobile (app|version)\\b",
+    "\\bweb version\\b"
+   ]
+  },
+  {
+   "id": "customisation",
+   "label": "Customisation and control",
+   "kind": "request",
+   "patterns": [
+    "\\bcustomi[sz]",
+    "\\bdark mode\\b",
+    "\\btheme\\b",
+    "\\bbranding\\b",
+    "\\bwhite.?label\\b",
+    "\\btemplates?\\b",
+    "\\bsettings?\\b",
+    "\\boption to\\b"
+   ]
+  },
+  {
+   "id": "collaboration",
+   "label": "Teams and sharing",
+   "kind": "request",
+   "patterns": [
+    "\\bteam(s|mates?)?\\b",
+    "\\bshar(e|ing)\\b",
+    "\\bcollaborat",
+    "\\bmultiple (users|accounts|people)\\b",
+    "\\broles?\\b",
+    "\\bpermissions for\\b"
+   ]
+  }
+ ]
+}

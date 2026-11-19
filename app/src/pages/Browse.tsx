@@ -14,14 +14,18 @@ function greeting() {
 }
 
 // S02 Home
+export const HIDE_PERSONAL_KEY = "rm.home.hidePersonal";
+export function readHidePersonal() { try { return localStorage.getItem(HIDE_PERSONAL_KEY) === "1"; } catch { return false; } }
+
 export function HomePage() {
   const { user } = useSession();
   const { data, error, loading, reload } = useLoad<HomeT>(() => api.home(), [user?.id]);
+  const hidePersonal = readHidePersonal();
   if (error) return <ErrorState text={error} retry={reload} />;
   return (
     <div className="page page--home">
       <h1 className="page__title">{greeting()}{data?.greetingName ? `, ${data.greetingName}` : ""}</h1>
-      {data && data.quick.length > 0 && (
+      {data && !hidePersonal && data.quick.length > 0 && (
         <div className="quickgrid">
           {data.quick.map((p) => (
             <div key={p.id} className="quick">
@@ -34,7 +38,7 @@ export function HomePage() {
         </div>
       )}
       {loading && !data && <><ShelfSkeleton /><ShelfSkeleton /></>}
-      {data?.shelves.map((s) => (
+      {data?.shelves.filter((s) => !(hidePersonal && (s.id === "recent" || s.id === "mine"))).map((s) => (
         <Shelf key={s.id} title={s.title} href={s.kind === "artist" ? "/search" : undefined}>
           {s.kind === "album" && s.items.map((a) => <AlbumCardView key={a.id} a={a} />)}
           {s.kind === "artist" && s.items.map((a) => <ArtistCardView key={a.id} a={a} />)}

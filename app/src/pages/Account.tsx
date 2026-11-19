@@ -5,6 +5,7 @@ import { api, ApiError, type Track } from "../api";
 import { useSession } from "../session";
 import { BRAND } from "../brand";
 import { EmptyState, PlayButton, HeartButton, Shelf, TrackList, Bars } from "../ui";
+import { HIDE_PERSONAL_KEY, readHidePersonal } from "./Browse";
 
 function AuthForm({ mode }: { mode: "login" | "signup" }) {
   const { setUser } = useSession();
@@ -134,11 +135,30 @@ function AccountSettings() {
 }
 export const SignupPage = () => <AuthForm mode="signup" />;
 
+function HomeSettings() {
+  const [hide, setHide] = useState(readHidePersonal);
+  return (
+    <>
+      <h2 className="section-title">Home</h2>
+      <label className="check">
+        <input type="checkbox" checked={hide} onChange={(e) => {
+          setHide(e.target.checked);
+          try { localStorage.setItem(HIDE_PERSONAL_KEY, e.target.checked ? "1" : "0"); } catch { /* storage blocked */ }
+        }} />
+        Hide my recent listening and playlists on Home
+      </label>
+      <h2 className="section-title">Playback</h2>
+      <p className="muted">Playlists and albums play exactly what's in them. Nothing is added, and shuffle plays every song once before any repeats.</p>
+    </>
+  );
+}
+
 export function SettingsPage() {
   return (
     <div className="page">
       <h1 className="page__title">Settings</h1>
       <section className="settings">
+        <HomeSettings />
         <h2 className="section-title">Account</h2>
         <AccountSettings />
         <h2 className="section-title">Keyboard shortcuts</h2>

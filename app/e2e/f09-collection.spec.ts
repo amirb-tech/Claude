@@ -26,3 +26,15 @@ test.describe("F09 organise the collection", () => {
     await expect(page.getByRole("button", { name: "Expand your collection" })).toBeVisible();
   });
 });
+
+test("FIX-4 setting hides personal shelves on Home", async ({ page }) => {
+  await signUp(page);
+  await page.getByRole("button", { name: "New playlist" }).click();
+  await page.goto("/");
+  await expect(page.getByRole("region", { name: "Your playlists" })).toBeVisible();
+  await page.goto("/settings");
+  await page.getByLabel("Hide my recent listening and playlists on Home").check();
+  await page.goto("/");
+  await expect(page.getByRole("region", { name: "Most played this week" })).toBeVisible();
+  await expect(page.getByRole("region", { name: "Your playlists" })).toHaveCount(0);
+});

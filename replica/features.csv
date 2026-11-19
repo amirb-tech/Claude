@@ -42,3 +42,11 @@ Lyrics,player,could,yes,skip,lyrics are licensed text
 Offline downloads with DRM,player,could,yes,skip,DRM and native apps out of this slice
 Connect (control playback on other devices),player,could,yes,skip,needs native apps and device protocol; out of this web slice
 Year-in-review recap,engagement,could,yes,skip,needs a year of listening data; revisit after launch
+No ads and no skip limits for any listener,fixes,must,no,yes,fix #1: ads 82 + can't pick/skip 31 reviews
+"Honest shuffle: every song once, persists, upcoming order visible",fixes,must,no,yes,"fix #2: shuffle 73 reviews, 2.3 stars; e2e F05-E1"
+Never insert songs into a list; autoplay only if switched on,fixes,must,no,yes,fix #3: songs not in my playlist 8 reviews
+Setting to hide recent listening and playlists on Home,fixes,should,no,yes,fix #4: turn things off 13 reviews; e2e FIX-4
+Queue survives refresh; syncs across devices,fixes,should,no,partial,"fix #5: queue 14 reviews; refresh done, sync to do"
+Never prompt for app-store reviews,fixes,could,no,yes,"fix #6: thin, 8 reviews 1 source"
+"Music only: no podcasts, video or AI host",fixes,should,no,yes,fix #7: clutter 76 reviews (mixed)
+Performance budget: JS under 100 kB gzipped,fixes,should,no,partial,"fix #8: bugs/slow 44 reviews; 74 kB today, no CI check yet"

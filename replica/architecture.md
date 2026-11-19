@@ -94,4 +94,4 @@ client state with server sync only for Connect, which is out of scope.
 3. Should-haves: S09 library filters, S10 queue reorder/remove, S11
    now-playing panel, save album/follow artist, keyboard shortcuts, mobile
    layout, Media Session, toasts, persistence.
-4. Fixes from replica-entrepreneur: (filled in after that skill runs)
+4. Fixes from replica-entrepreneur: see replica/fixes.md (8 fixes; 6 true today, #4 built, #5 sync and #8 CI check to do)
