@@ -2,12 +2,23 @@ import express, { type Request, type Response } from "express";
 import path from "node:path";
 import { existsSync } from "node:fs";
 import { all, get, run, now, uid, tx, ROOT, TRACK_COLS, TRACK_JOIN } from "./db.ts";
+import { randomBytes, createHash } from "node:crypto";
 import { hashPassword, verifyPassword, startSession, endSession, loadUser, requireUser } from "./auth.ts";
+import { sendMail, resetEmail } from "./mail.ts";
+import { rateLimit } from "./ratelimit.ts";
+
+const BRAND_NAME = process.env.APP_NAME ?? "Untitled Player";
+const sha256 = (s: string) => createHash("sha256").update(s).digest("hex");
 
 const app = express();
 app.disable("x-powered-by");
+if (process.env.TRUST_PROXY) app.set("trust proxy", Number(process.env.TRUST_PROXY) || 1);
 app.use(express.json({ limit: "32kb" }));
 app.use(loadUser);
+// 10 attempts / 15 min per IP on password endpoints; 5 / hour on anything that sends email
+const authLimit = rateLimit("auth", 10, 15 * 60_000);
+app.use(["/api/auth/login", "/api/auth/signup", "/api/auth/reset", "/api/me/password"], (req, res, next) => (req.method === "GET" ? next() : authLimit(req, res, next)));
+app.use("/api/auth/forgot", rateLimit("mail", 5, 60 * 60_000));
 app.use((_req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("Referrer-Policy", "same-origin");
@@ -77,6 +88,64 @@ app.post("/api/auth/login", (req, res) => {
 
 app.post("/api/auth/logout", (req, res) => { endSession(req, res); res.status(204).end(); });
 app.get("/api/me", (req, res) => res.json(req.user ?? null));
+
+/** Sign out on every device: drops all sessions, then starts a fresh one here. */
+app.post("/api/auth/logout-everywhere", requireUser, (req, res) => {
+  run("DELETE FROM sessions WHERE user_id = ?", req.user!.id);
+  startSession(res, req.user!.id);
+  res.status(204).end();
+});
+
+app.post("/api/auth/forgot", async (req, res) => {
+  const email = str(req.body?.email, 254).toLowerCase();
+  const u = get<{ id: string }>("SELECT id FROM users WHERE email = ?", email);
+  // always the same answer, so this can't be used to find out who has an account
+  res.status(202).json({ ok: true });
+  if (!u) return;
+  const token = randomBytes(32).toString("base64url");
+  run("INSERT INTO password_resets (token_hash, user_id, expires_at) VALUES (?,?,?)", sha256(token), u.id, now() + 3600_000);
+  const base = process.env.PUBLIC_URL ?? `${req.protocol}://${req.get("host")}`;
+  const mail = resetEmail(BRAND_NAME, `${base}/reset/${token}`);
+  try { await sendMail({ to: email, ...mail }); } catch (e) { console.error("reset mail failed:", (e as Error).message); }
+});
+
+app.post("/api/auth/reset", (req, res) => {
+  const token = str(req.body?.token, 100);
+  const password = typeof req.body?.password === "string" ? req.body.password : "";
+  if (password.length < 8 || password.length > 200) return bad(res, "Use at least 8 characters for your password.");
+  const r = get<{ user_id: string; expires_at: number; used_at: number | null }>("SELECT * FROM password_resets WHERE token_hash = ?", sha256(token));
+  if (!r || r.used_at || r.expires_at < now()) return bad(res, "This reset link has expired or was already used. Ask for a new one.", 400);
+  tx(() => {
+    run("UPDATE password_resets SET used_at = ? WHERE token_hash = ?", now(), sha256(token));
+    run("UPDATE users SET password_hash = ?, updated_at = ? WHERE id = ?", hashPassword(password), now(), r.user_id);
+    run("DELETE FROM sessions WHERE user_id = ?", r.user_id); // a reset signs every device out
+  });
+  startSession(res, r.user_id);
+  const u = get<{ id: string; email: string; display_name: string }>("SELECT * FROM users WHERE id = ?", r.user_id)!;
+  res.json({ id: u.id, email: u.email, displayName: u.display_name });
+});
+
+app.post("/api/me/password", requireUser, (req, res) => {
+  const current = typeof req.body?.current === "string" ? req.body.current : "";
+  const next = typeof req.body?.next === "string" ? req.body.next : "";
+  const u = get<{ password_hash: string }>("SELECT password_hash FROM users WHERE id = ?", req.user!.id)!;
+  if (!verifyPassword(current, u.password_hash)) return bad(res, "Your current password isn't right.", 403);
+  if (next.length < 8 || next.length > 200) return bad(res, "Use at least 8 characters for your new password.");
+  run("UPDATE users SET password_hash = ?, updated_at = ? WHERE id = ?", hashPassword(next), now(), req.user!.id);
+  run("DELETE FROM sessions WHERE user_id = ?", req.user!.id);
+  startSession(res, req.user!.id);
+  res.status(204).end();
+});
+
+/** Deletes the account and everything it owns (cascades). Needs the password. */
+app.delete("/api/me", requireUser, (req, res) => {
+  const password = typeof req.body?.password === "string" ? req.body.password : "";
+  const u = get<{ password_hash: string }>("SELECT password_hash FROM users WHERE id = ?", req.user!.id)!;
+  if (!verifyPassword(password, u.password_hash)) return bad(res, "That password isn't right.", 403);
+  run("DELETE FROM users WHERE id = ?", req.user!.id);
+  res.clearCookie("sid", { path: "/" });
+  res.status(204).end();
+});
 
 // ---------- browse ----------
 app.get("/api/home", (req, res) => {

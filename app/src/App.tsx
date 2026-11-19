@@ -4,7 +4,7 @@ import { SessionProvider } from "./session";
 import { Sidebar, TopBar, PlayerBar, QueuePanel, NowPanel, MobileNav, LoginPrompt } from "./components/Shell";
 import { HomePage, SearchPage, SearchBox, GenrePage } from "./pages/Browse";
 import { ArtistPage, AlbumPage, PlaylistPage, HeartedPage, CollectionPage, useShortcuts } from "./pages/Collections";
-import { LoginPage, SignupPage, SettingsPage, NotFoundPage, DesignPage } from "./pages/Account";
+import { LoginPage, SignupPage, ForgotPage, ResetPage, SettingsPage, NotFoundPage, DesignPage } from "./pages/Account";
 import { MenuHost, ConfirmHost, Toasts } from "./ui";
 import { BRAND } from "./brand";
 
@@ -17,7 +17,9 @@ function Layout() {
   const onSearch = useMatch("/search/*");
   const onLogin = useMatch("/login");
   const onSignup = useMatch("/signup");
-  const authPage = onLogin || onSignup;
+  const onForgot = useMatch("/forgot");
+  const onReset = useMatch("/reset/:token");
+  const authPage = onLogin || onSignup || onForgot || onReset;
   const shortcuts = useShortcuts();
 
   useEffect(() => { try { localStorage.setItem("rm.rail", collapsed ? "1" : "0"); } catch { /* ignore */ } }, [collapsed]);
@@ -26,7 +28,7 @@ function Layout() {
   useEffect(() => { document.title = BRAND.name; }, [loc.pathname]);
 
   if (authPage) {
-    return <main className="auth-shell"><Routes><Route path="/login" element={<LoginPage />} /><Route path="/signup" element={<SignupPage />} /></Routes><Toasts /></main>;
+    return <main className="auth-shell"><Routes><Route path="/login" element={<LoginPage />} /><Route path="/signup" element={<SignupPage />} /><Route path="/forgot" element={<ForgotPage />} /><Route path="/reset/:token" element={<ResetPage />} /></Routes><Toasts /></main>;
   }
   return (
     <div className={`app ${panel ? "has-panel" : ""} ${collapsed ? "rail-collapsed" : ""}`}>

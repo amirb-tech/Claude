@@ -1,5 +1,5 @@
 import { DatabaseSync } from "node:sqlite";
-import { readFileSync, mkdirSync } from "node:fs";
+import { readFileSync, mkdirSync, readdirSync } from "node:fs";
 import { randomUUID } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,7 +11,24 @@ mkdirSync(DATA_DIR, { recursive: true });
 
 export const db = new DatabaseSync(process.env.DB_PATH ?? path.join(DATA_DIR, "app.db"));
 db.exec("PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON;");
-db.exec(readFileSync(path.join(here, "schema.sql"), "utf8"));
+// Numbered migrations in server/migrations, each applied once, in order.
+db.exec("CREATE TABLE IF NOT EXISTS schema_migrations (name TEXT PRIMARY KEY, applied_at INTEGER NOT NULL)");
+{
+  const dir = path.join(here, "migrations");
+  const done = new Set((db.prepare("SELECT name FROM schema_migrations").all() as { name: string }[]).map((r) => r.name));
+  for (const f of readdirSync(dir).filter((x) => /^\d+_.*\.sql$/.test(x)).sort()) {
+    if (done.has(f)) continue;
+    db.exec("BEGIN");
+    try {
+      db.exec(readFileSync(path.join(dir, f), "utf8"));
+      db.prepare("INSERT INTO schema_migrations (name, applied_at) VALUES (?, ?)").run(f, Date.now());
+      db.exec("COMMIT");
+    } catch (e) {
+      db.exec("ROLLBACK");
+      throw new Error(`migration ${f} failed: ${(e as Error).message}`);
+    }
+  }
+}
 
 export const now = () => Date.now();
 export const uid = () => randomUUID();

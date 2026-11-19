@@ -391,3 +391,4 @@ kbd { font-family: var(--font-mono); font-size: var(--fs-xs); background: var(--
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
+.settings__form { max-width: 420px; }

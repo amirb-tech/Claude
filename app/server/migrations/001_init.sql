@@ -1,7 +1,6 @@
 -- SQLite schema (node:sqlite). Postgres port: TEXT ids -> uuid, INTEGER ms
 -- timestamps -> timestamptz, same constraints. Access rules: data-layer
 -- checks (one ownership check per mutating query in server/db.ts).
-PRAGMA foreign_keys = ON;
 
 CREATE TABLE IF NOT EXISTS users (
   id TEXT PRIMARY KEY,

@@ -10,7 +10,8 @@
     "dev:web": "vite",
     "build": "tsc -p tsconfig.json --noEmit && vite build",
     "start": "NODE_ENV=production tsx server/index.ts",
-    "setup": "npm run media && npm run seed && npm run build"
+    "setup": "npm run media && npm run seed && npm run build",
+    "test:api": "node --test --import tsx tests/api.test.ts"
   },
   "dependencies": {
     "@fontsource/manrope": "^5.1.0",
@@ -18,7 +19,7 @@
     "lucide-react": "^0.460.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.0",
+    "react-router-dom": "^7.18.6",
     "tsx": "^4.19.2"
   },
   "devDependencies": {

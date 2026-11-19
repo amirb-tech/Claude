@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Compass, Heart, Play } from "lucide-react";
 import { api, ApiError, type Track } from "../api";
 import { useSession } from "../session";
@@ -42,22 +42,105 @@ function AuthForm({ mode }: { mode: "login" | "signup" }) {
           {err && <p className="form__err" role="alert">{err}</p>}
           <button type="submit" className="btn btn--primary btn--block" disabled={busy}>{busy ? "One moment…" : signup ? "Create account" : "Log in"}</button>
         </form>
+        {!signup && <p className="auth__switch"><Link to="/forgot">Forgot your password?</Link></p>}
         <p className="auth__switch">{signup ? <>Have an account? <Link to="/login">Log in</Link></> : <>New here? <Link to="/signup">Create a free account</Link></>}</p>
       </div>
     </div>
   );
 }
 export const LoginPage = () => <AuthForm mode="login" />;
+
+export function ForgotPage() {
+  const [email, setEmail] = useState("");
+  const [sent, setSent] = useState(false);
+  const [err, setErr] = useState("");
+  return (
+    <div className="auth"><div className="auth__card">
+      <span className="brand__mark brand__mark--lg" aria-hidden />
+      <h1>Reset your password</h1>
+      {sent ? <p className="muted" role="status">If an account uses that email, a reset link is on its way. It works for one hour.</p> : (
+        <form className="form" onSubmit={async (e) => {
+          e.preventDefault(); setErr("");
+          try { await api.forgot(email); setSent(true); } catch (x) { setErr(x instanceof ApiError ? x.message : "Couldn't reach the server."); }
+        }}>
+          <label className="field"><span>Email</span><input className="input" type="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></label>
+          {err && <p className="form__err" role="alert">{err}</p>}
+          <button type="submit" className="btn btn--primary btn--block">Send reset link</button>
+        </form>
+      )}
+      <p className="auth__switch"><Link to="/login">Back to log in</Link></p>
+    </div></div>
+  );
+}
+
+export function ResetPage() {
+  const { token = "" } = useParams();
+  const { setUser } = useSession();
+  const nav = useNavigate();
+  const [pw, setPw] = useState("");
+  const [err, setErr] = useState("");
+  return (
+    <div className="auth"><div className="auth__card">
+      <span className="brand__mark brand__mark--lg" aria-hidden />
+      <h1>Choose a new password</h1>
+      <form className="form" onSubmit={async (e) => {
+        e.preventDefault(); setErr("");
+        try { setUser(await api.reset(token, pw)); nav("/"); } catch (x) { setErr(x instanceof ApiError ? x.message : "Couldn't reach the server."); }
+      }}>
+        <label className="field"><span>New password</span><input className="input" type="password" autoComplete="new-password" minLength={8} required value={pw} onChange={(e) => setPw(e.target.value)} /></label>
+        <p className="muted small">At least 8 characters. You'll be signed out on other devices.</p>
+        {err && <p className="form__err" role="alert">{err}</p>}
+        <button type="submit" className="btn btn--primary btn--block">Save and log in</button>
+      </form>
+    </div></div>
+  );
+}
+
+function AccountSettings() {
+  const { user, setUser, toast } = useSession();
+  const nav = useNavigate();
+  const [cur, setCur] = useState(""); const [next, setNext] = useState(""); const [pwErr, setPwErr] = useState("");
+  const [del, setDel] = useState(""); const [delErr, setDelErr] = useState("");
+  if (!user) return <p className="muted">You're not logged in. <Link to="/login">Log in</Link></p>;
+  return (
+    <>
+      <p>{user.displayName} · {user.email}</p>
+      <h3 className="section-title">Change password</h3>
+      <form className="form settings__form" onSubmit={async (e) => {
+        e.preventDefault(); setPwErr("");
+        try { await api.changePassword(cur, next); setCur(""); setNext(""); toast("Password changed. Other devices were signed out."); }
+        catch (x) { setPwErr(x instanceof ApiError ? x.message : "Couldn't save."); }
+      }}>
+        <label className="field"><span>Current password</span><input className="input" type="password" autoComplete="current-password" value={cur} onChange={(e) => setCur(e.target.value)} /></label>
+        <label className="field"><span>New password</span><input className="input" type="password" autoComplete="new-password" minLength={8} value={next} onChange={(e) => setNext(e.target.value)} /></label>
+        {pwErr && <p className="form__err" role="alert">{pwErr}</p>}
+        <div><button type="submit" className="btn btn--secondary">Change password</button></div>
+      </form>
+      <h3 className="section-title">Devices</h3>
+      <button type="button" className="btn btn--secondary" onClick={async () => { await api.logoutEverywhere(); toast("Signed out everywhere else"); }}>Sign out of all other devices</button>
+      <h3 className="section-title">Delete account</h3>
+      <p className="muted">This removes your account, playlists, hearted songs and history for good. It can't be undone.</p>
+      <form className="form settings__form" onSubmit={async (e) => {
+        e.preventDefault(); setDelErr("");
+        try { await api.deleteAccount(del); setUser(null); toast("Your account was deleted"); nav("/"); }
+        catch (x) { setDelErr(x instanceof ApiError ? x.message : "Couldn't delete the account."); }
+      }}>
+        <label className="field"><span>Type your password to confirm</span><input className="input" type="password" autoComplete="current-password" value={del} onChange={(e) => setDel(e.target.value)} /></label>
+        {delErr && <p className="form__err" role="alert">{delErr}</p>}
+        <div><button type="submit" className="btn btn--danger" disabled={!del}>Delete my account</button></div>
+      </form>
+    </>
+  );
+}
 export const SignupPage = () => <AuthForm mode="signup" />;
 
 export function SettingsPage() {
-  const { user } = useSession();
   return (
     <div className="page">
       <h1 className="page__title">Settings</h1>
       <section className="settings">
         <h2 className="section-title">Account</h2>
-        {user ? <p>{user.displayName} · {user.email}</p> : <p className="muted">You're not logged in.</p>}
+        <AccountSettings />
         <h2 className="section-title">Keyboard shortcuts</h2>
         <dl className="keys">
           <dt><kbd>Space</kbd></dt><dd>Play or pause</dd>
